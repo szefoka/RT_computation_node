@@ -2,7 +2,9 @@
 
 # EDF and its variations for multiple CPU
 Earliest deadline first (EDF) or least time to go is **a dynamic priority scheduling algorithm used in real-time operating systems to place processes in a priority queue**. Whenever a scheduling event occurs (task finishes, new task released, etc.) the queue will be searched for the process closest to its deadline.
-Source: https://en.wikipedia.org/wiki/Earliest_deadline_first_scheduling
+
+Source: 
+https://en.wikipedia.org/wiki/Earliest_deadline_first_scheduling
 
 - EDF is designed for a single CPU
 - On multiple CPUs, gEDF (Global EDF) and pEDF (Partitioned EDF) are available
@@ -46,6 +48,7 @@ After this, each new apps that I run were executed by new child cpuset.
 ### What is cpu_exclusive?
 
 Cpuset.cpu_exclusive flag (0 or 1).  If set (1), the cpuset has exclusive use  of its CPUs (no sibling or cousin cpuset may overlap          CPUs).  By default, this is off (0).  Newly created               cpusets also initially default this to off (0).
+
 Source: https://man7.org/linux/man-pages/man7/cpuset.7.html
 
 ### Is it possible to modify the number of cpus in the cpuset while the tasks are executed by that cpuset?
