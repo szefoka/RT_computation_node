@@ -2,7 +2,9 @@
 
 # EDF and its variations for multiple CPU
 Earliest deadline first (EDF) or least time to go is **a dynamic priority scheduling algorithm used in real-time operating systems to place processes in a priority queue**. Whenever a scheduling event occurs (task finishes, new task released, etc.) the queue will be searched for the process closest to its deadline.
-Source: https://en.wikipedia.org/wiki/Earliest_deadline_first_scheduling
+
+Source: 
+https://en.wikipedia.org/wiki/Earliest_deadline_first_scheduling
 
 - EDF is designed for a single CPU
 - On multiple CPUs, gEDF (Global EDF) and pEDF (Partitioned EDF) are available
@@ -46,6 +48,7 @@ After this, each new apps that I run were executed by new child cpuset.
 ### What is cpu_exclusive?
 
 Cpuset.cpu_exclusive flag (0 or 1).  If set (1), the cpuset has exclusive use  of its CPUs (no sibling or cousin cpuset may overlap          CPUs).  By default, this is off (0).  Newly created               cpusets also initially default this to off (0).
+
 Source: https://man7.org/linux/man-pages/man7/cpuset.7.html
 
 ### Is it possible to modify the number of cpus in the cpuset while the tasks are executed by that cpuset?
@@ -78,8 +81,8 @@ $ chrt -d --sched-runtime 5000000 --sched-deadline 10000000 --sched-period 16666
 Enter in the cpuset directory and create two cpusets:
 ```
     # cd /sys/fs/cgroup/cpuset/
-    # mkdir cluster
-    # mkdir partition
+    # mkdir non_rt_cpus
+    # mkdir rt_cpus
 ```
 Disable load balancing in the root cpuset to create two new root domains in the CPU sets:
 ```
@@ -87,8 +90,8 @@ Disable load balancing in the root cpuset to create two new root domains in the 
 ```
 Enter the directory for the cluster cpuset, set the CPUs available to 1-3, the memory node the set should run in (in this case the system is not NUMA, so it is always node zero), and set the cpuset to the exclusive mode.
 ```
-    # cd cluster/
-    # echo 1-7 > cpuset.cpus
+    # cd non_rt_cpus/
+    # echo 0-2 > cpuset.cpus
     # echo 0 > cpuset.mems
     # echo 1 > cpuset.cpu_exclusive 
 ```
@@ -99,10 +102,10 @@ Move all tasks to this CPU set
 Then it is possible to start deadline tasks in this cpuset.
 Configure the partition cpuset:
 ```
-    # cd ../partition/
+    # cd ../rt_cpus/
     # echo 1 > cpuset.cpu_exclusive 
     # echo 0 > cpuset.mems 
-    # echo 0 > cpuset.cpus
+    # echo 3 > cpuset.cpus
 ```
 Finally move the shell to the partition cpuset.
 ```
