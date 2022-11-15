@@ -11,4 +11,3 @@ for i in range(100):
 
     print(end_time-start_time)
 
-print("DONE")
