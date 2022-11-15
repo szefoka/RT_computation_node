@@ -81,8 +81,8 @@ $ chrt -d --sched-runtime 5000000 --sched-deadline 10000000 --sched-period 16666
 Enter in the cpuset directory and create two cpusets:
 ```
     # cd /sys/fs/cgroup/cpuset/
-    # mkdir cluster
-    # mkdir partition
+    # mkdir non_rt_cpus
+    # mkdir rt_cpus
 ```
 Disable load balancing in the root cpuset to create two new root domains in the CPU sets:
 ```
@@ -91,7 +91,7 @@ Disable load balancing in the root cpuset to create two new root domains in the 
 Enter the directory for the cluster cpuset, set the CPUs available to 1-3, the memory node the set should run in (in this case the system is not NUMA, so it is always node zero), and set the cpuset to the exclusive mode.
 ```
     # cd cluster/
-    # echo 1-7 > cpuset.cpus
+    # echo 0-2 > cpuset.cpus
     # echo 0 > cpuset.mems
     # echo 1 > cpuset.cpu_exclusive 
 ```
@@ -105,7 +105,7 @@ Configure the partition cpuset:
     # cd ../partition/
     # echo 1 > cpuset.cpu_exclusive 
     # echo 0 > cpuset.mems 
-    # echo 0 > cpuset.cpus
+    # echo 3 > cpuset.cpus
 ```
 Finally move the shell to the partition cpuset.
 ```
