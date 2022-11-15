@@ -90,7 +90,7 @@ Disable load balancing in the root cpuset to create two new root domains in the 
 ```
 Enter the directory for the cluster cpuset, set the CPUs available to 1-3, the memory node the set should run in (in this case the system is not NUMA, so it is always node zero), and set the cpuset to the exclusive mode.
 ```
-    # cd cluster/
+    # cd non_rt_cpus/
     # echo 0-2 > cpuset.cpus
     # echo 0 > cpuset.mems
     # echo 1 > cpuset.cpu_exclusive 
@@ -102,7 +102,7 @@ Move all tasks to this CPU set
 Then it is possible to start deadline tasks in this cpuset.
 Configure the partition cpuset:
 ```
-    # cd ../partition/
+    # cd ../rt_cpus/
     # echo 1 > cpuset.cpu_exclusive 
     # echo 0 > cpuset.mems 
     # echo 3 > cpuset.cpus
