@@ -1,0 +1,61 @@
+Sima szerveren:
+
+Webcam helyett egy kép!
+
+CFS MEGOLDÁS:
+
+Indítani a face detectort:
+root@c220g1:/users/szefoka/RT_computation_node/demos/facedetection-master# python detect_face_video.py
+
+Közben stressor-ok:
+root@c220g1:~# stress-ng --sequential 0 -t 1s
+
+Kimenet:
+149773761
+140100458
+144638489
+142056157
+141308626
+138017996
+489118496
+7
+1134856434
+1
+1275572781
+1
+524895114
+1420784118
+2
+138535958
+138840216
+137969659
+138835919
+138118094
+138743236
+138318385
+138742489
+8
+138078931
+138763669
+138300235
+138879354
+138192914
+138824196
+138058178
+138825370
+
+fps függ az arcok számától, a kép nagyságátál, stb.
+
+EDF MEGOLDÁS:
+
+- láttuk, hogy alapból ~138 ms alatt végez egy ciklussal
+
+Indítsuk EDF-fel a következőképp:
+root@c220g1:/users/szefoka/RT_computation_node/demos/facedetection-master# chrt -d --sched-runtime 141000000 --sched-deadline 142000000 --sched-period 142000000 0 python detect_face_video.py
+
+Felfedezés: Ha túl szigorú a runtime, akkor rosszabb lesz.
+
+-----------------------------------------------------------------------------------------------------------------------
+SAJÁT LAPTOP |
+--------------
+
