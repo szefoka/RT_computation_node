@@ -76,7 +76,7 @@ Second, start the process by defining runtime, deadline and period:
 $ chrt -d --sched-runtime 5000000 --sched-deadline 10000000 --sched-period 16666666 0 \<command\>
 ```
 
-## Tutorial to try out partitioned EDF on your notebook
+## Tutorial on how to make partitioned EDF on your notebook
 
 Enter in the cpuset directory and create two cpusets:
 ```
