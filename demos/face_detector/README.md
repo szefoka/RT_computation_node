@@ -1,5 +1,5 @@
 
-# Face Detector Demo using a normal notebook
+# Face Detector Demo
 
 This is a face detector demo where we demonstrate the difference between a **best-effort process execution** (scheduled by default CFS of Ubuntu) and the **real-time**, i.e., (near-)deterministic execution of the same task.
 
